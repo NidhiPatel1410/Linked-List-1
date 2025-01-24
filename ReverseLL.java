@@ -34,3 +34,31 @@ class Solution {
         return curr;
     }
 }
+
+// Another approach- with hashmap
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        int cnt = 1;
+        HashMap<Integer, ListNode> map = new HashMap<>();
+        while (head != null) {
+            map.put(cnt, head);
+            head = head.next;
+            cnt++;
+        }
+        cnt--;
+        head = map.get(cnt);
+        ListNode prev = null;
+        ListNode curr = map.get(cnt);
+        while (cnt > 1) {
+            cnt--;
+            prev = curr;
+            curr = map.get(cnt);
+            prev.next = curr;
+        }
+        curr.next = null;
+        return head;
+    }
+}
