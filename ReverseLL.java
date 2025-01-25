@@ -36,6 +36,10 @@ class Solution {
 }
 
 // Another approach- with hashmap
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
 class Solution {
     public ListNode reverseList(ListNode head) {
         if (head == null || head.next == null) {
@@ -60,5 +64,37 @@ class Solution {
         }
         curr.next = null;
         return head;
+    }
+}
+
+// Reverse using Recursion: Eg.Input: head = [1,2,3,4,5] ; Recursive stack looks
+// like [1,2,3,4]
+// Output: [5,4,3,2,1]
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        // Go till the end node in LL i.e. 5
+        // Reversed will have value 5
+        ListNode reversed = reverseList(head.next);
+        // Then all recursive calls completed, it will start popping, so head=4
+        // So what we are doing is 4s next that is 5, so 5s next should be head i.e 4 ;
+        // 4->5->4
+        head.next.next = head;
+        // So it will form a cycle, so make 4s next null now. So far, 5->4->null
+        head.next = null;
+        // Then in head 3 will be popped, so again same 3->4->3 and then 3->null. So,
+        // final 5->4->3->null
+        // Then in head 2 will be popped, so again same 2->3->2 and then 2->null. So,
+        // final 5->4->3->2->null
+        // Then in head 1 will be popped, so again same 1->2->1 and then 1->null. So,
+        // final 5->4->3->2->1->null
+        // End return reversed i.e 5
+        return reversed;
     }
 }
